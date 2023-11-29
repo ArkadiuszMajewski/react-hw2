@@ -1,0 +1,23 @@
+.feedback {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: auto;
+}
+.title {
+  justify-content: center;
+  align-items: center;
+}
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  list-style: none;
+  gap: 10px;
+}
