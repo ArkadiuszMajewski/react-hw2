@@ -1,5 +1,5 @@
 import Feedback from './Feedback-num1/Feedback';
-import Contacts from './ContactList/ContactList';
+import Contacts from './ContactList';
 import React from 'react';
 export const App = () => {
   return (

@@ -1,3 +1,4 @@
+import { number } from 'prop-types';
 import css from './Feedback.module.css';
 import React, { Component } from 'react';
 class Feedback extends Component {
@@ -7,20 +8,12 @@ class Feedback extends Component {
     bad: 0,
     isDisplayed: false,
   };
-  handleGood = () => {
-    this.setState({ good: this.state.good + 1 });
-    this.setState({ isDisplayed: true });
-    console.log(this.state);
-  };
-  handleBad = () => {
-    this.setState({ bad: this.state.bad + 1 });
-    this.setState({ isDisplayed: true });
-    console.log(this.state);
-  };
-  handleNeutral = () => {
-    this.setState({ neutral: this.state.neutral + 1 });
-    this.setState({ isDisplayed: true });
-    console.log(this.state);
+
+  handleButton = evt => {
+    const name = evt.target.name;
+    const value = parseInt(evt.target.value);
+
+    this.setState({ [name]: value + 1, isDisplayed: true });
   };
 
   render() {
@@ -29,9 +22,15 @@ class Feedback extends Component {
       <div className={css.feedback}>
         <h1 className={css.title}> Please leave feedback </h1>
         <div className={css.buttons}>
-          <button onClick={this.handleGood}>Good </button>
-          <button onClick={this.handleNeutral}>Neutral</button>
-          <button onClick={this.handleBad}>Bad</button>
+          <button name="good" value={good} onClick={this.handleButton}>
+            Good{' '}
+          </button>
+          <button name="neutral" value={neutral} onClick={this.handleButton}>
+            Neutral
+          </button>
+          <button name="bad" value={bad} onClick={this.handleButton}>
+            Bad
+          </button>
         </div>
         <h1>Statistics:</h1>
         {isDisplayed ? (
