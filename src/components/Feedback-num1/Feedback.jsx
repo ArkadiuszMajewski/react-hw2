@@ -1,4 +1,3 @@
-import { number } from 'prop-types';
 import css from './Feedback.module.css';
 import React, { Component } from 'react';
 class Feedback extends Component {
