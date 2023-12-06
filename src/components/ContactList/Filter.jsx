@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class Filter extends Component {
   render() {
     const { filter, handleChange } = this.props;
+
     return (
       <input
         type="text"

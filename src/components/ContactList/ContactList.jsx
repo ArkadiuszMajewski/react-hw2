@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import css from './ContactList.module.css';
+
 class ContactList extends Component {
-  setFilter() {
-    const { contacts } = this.props;
-    const name = contacts.name;
-    console.log(name);
-  }
   render() {
     const { contacts, HandleDeleteContact } = this.props;
 

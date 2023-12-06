@@ -9,15 +9,26 @@ import Notiflix from 'notiflix';
 class Contacts extends Component {
   state = {
     contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+      // { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      // { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      // { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      // { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
     name: '',
     number: '',
   };
+
+  componentDidMount() {
+    const localStorageContacts = localStorage.getItem('contacts');
+    this.setState({ contacts: JSON.parse(localStorageContacts) });
+    const formData = localStorage.getItem('formData');
+    this.setState({ name: JSON.parse(formData)[0].name });
+    this.setState({ number: JSON.parse(formData)[0].number });
+  }
+  componentDidUpdate() {
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  }
 
   handleSubbmit = evt => {
     const { name, number, contacts } = this.state;
@@ -28,7 +39,7 @@ class Contacts extends Component {
       name: name,
       number: number,
     };
-
+    // console.log(JSON.parse(localStorage.getItem('contacts')));
     const stateNames = contacts.map(contact => contact.name);
     const stateNumbers = contacts.map(contact => contact.number);
     const findNameByNumb = contacts.find(contact =>
@@ -49,10 +60,21 @@ class Contacts extends Component {
         'return'
       );
     }
+    if (this.state.name === '') {
+      return Notiflix.Report.warning(`no name`, `warning`, 'return');
+    }
+    if (this.state.number === '') {
+      return Notiflix.Report.warning(`warning`, `no number`, 'return');
+    }
 
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
     }));
+
+    localStorage.setItem(
+      'formData',
+      JSON.stringify([{ name: '', number: '' }])
+    );
     this.setState({ name: '', number: '' });
   };
 
@@ -60,6 +82,11 @@ class Contacts extends Component {
     evt.preventDefault();
     const { name, value } = evt.target;
     this.setState({ [name]: value });
+
+    localStorage.setItem(
+      'formData',
+      JSON.stringify([{ name: this.state.name, number: this.state.number }])
+    );
   };
 
   FilteredData = () => {
